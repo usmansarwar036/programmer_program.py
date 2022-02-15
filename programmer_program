@@ -1,0 +1,40 @@
+from pygame import mixer
+from datetime import datetime
+from time import time
+
+def musiconloop(file,stopper):
+    mixer.init()
+    mixer.music.load(file)
+    mixer.music.play()
+    while True:
+        stp_inp = input()
+        if stp_inp == stopper:
+            break
+def log(msg):
+    with open('log.txt','a') as f:
+        f.write(f'{msg} {datetime.now()}\n')
+
+
+if __name__ == '__main__':
+    init_water = time()
+    init_eyes = time()
+    init_exercise = time()
+    watersecs = 3
+    eyessecs = 4
+    exercisesecs = 5
+    while True:
+        if time() - init_water > watersecs:
+            print('This is time for drinking water. Enter \'waterdone\' to stop the sound')
+            musiconloop('usman-please-drink-water.mp3','waterdone')
+            init_water = time()
+            log('Drank water at')
+        if time() - init_eyes > eyessecs:
+            print('This is time for eyes relaxing. Enter \'eyedone\' to stop the sound')
+            musiconloop('usman-let-your-eyes-be-relaxed.mp3','eyedone')
+            init_eyes = time()
+            log('Eyes relaxed at')
+        if time() - init_exercise > exercisesecs:
+            print('This is time for Exercise. Enter \'exdone\' to stop the sound')
+            musiconloop('usman-please-do-some-another-physical-activity-to-be-relaxed.mp3','exdone')
+            init_exercise = time()
+            log('exercise done at')
